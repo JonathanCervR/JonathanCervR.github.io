@@ -449,8 +449,23 @@ function renderModal(){
   var p=PROJECTS[currentModalIndex],l=currentLang;
   var inner='';
   if(p.isCollection){
-    var cards=p.collection.map(function(c){
-      return '<div style="background:rgba(46,139,240,.06);border:1px solid rgba(46,139,240,.14);border-radius:10px;padding:1.1rem 1.25rem;margin-bottom:.85rem"><h4 style="font-family:DM Serif Display,serif;font-size:1rem;color:#fff;margin-bottom:.5rem">'+c.name[l]+'</h4><p style="font-size:.85rem;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:.6rem">'+c.desc[l]+'</p><div style="display:flex;flex-wrap:wrap;gap:.3rem">'+c.tags.map(function(t){return '<span class="proj-tag">'+t+'</span>';}).join('')+'</div></div>';
+    var cards=p.collection.map(function(c,ci){
+      var res=(c.resultados||[]).map(function(r){return '<div class="result-card"><div class="result-num">'+r.num+'</div><div class="result-label">'+r.label[l]+'</div></div>';}).join('');
+      var gal=(c.gallery||[null,null,null]).map(function(s,gi){return s?'<div class="gallery-slot"><img src="'+s+'" style="width:100%;height:100%;object-fit:cover"></div>':'<div class="gallery-slot">📷<br>'+(l==='es'?'Agrega foto':'Add photo')+' '+(gi+1)+'</div>';}).join('');
+      return '<div style="background:rgba(46,139,240,.06);border:1px solid rgba(46,139,240,.14);border-radius:10px;padding:1.1rem 1.25rem;margin-bottom:.85rem">'+
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem">'+
+        '<h4 style="font-family:DM Serif Display,serif;font-size:1rem;color:#fff">'+c.name[l]+'</h4>'+
+        '<button onclick="toggleColl('+ci+')" id="coll-btn-'+ci+'" style="background:rgba(26,111,212,.14);color:#5ba8f5;border:1px solid rgba(46,139,240,.26);padding:5px 12px;border-radius:6px;font-size:.75rem;font-weight:600;cursor:pointer;font-family:DM Sans,sans-serif">'+(l==='es'?'Ver más':'See more')+' →</button>'+
+        '</div>'+
+        '<div style="display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.5rem">'+c.tags.map(function(t){return '<span class="proj-tag">'+t+'</span>';}).join('')+'</div>'+
+        '<p style="font-size:.85rem;color:rgba(255,255,255,.5);line-height:1.6">'+c.desc[l]+'</p>'+
+        '<div id="coll-detail-'+ci+'" style="display:none;margin-top:1rem">'+
+        '<div class="modal-section"><div class="modal-section-label">'+(l==='es'?'El reto':'The challenge')+'</div><p>'+c.reto[l]+'</p></div>'+
+        '<div class="modal-section"><div class="modal-section-label">'+(l==='es'?'La solución':'The solution')+'</div><p>'+c.solucion[l]+'</p></div>'+
+        (res?'<div class="modal-section"><div class="modal-section-label">'+(l==='es'?'Resultados':'Results')+'</div><div class="results-row">'+res+'</div></div>':'')+
+        '<div class="modal-section"><div class="modal-section-label">'+(l==='es'?'Galería':'Gallery')+'</div><div class="gallery">'+gal+'</div></div>'+
+        '</div>'+
+      '</div>';
     }).join('');
     inner='<div class="modal-badge">'+p.badge[l]+'</div><div class="modal-title">'+p.title[l]+'</div>'+cards;
   } else {
@@ -467,6 +482,19 @@ function renderModal(){
   document.getElementById('btn-prev').disabled=currentModalIndex===0;
   document.getElementById('btn-next').disabled=currentModalIndex===PROJECTS.length-1;
   document.getElementById('modal').scrollTop=0;
+}
+
+function toggleColl(i){
+  var d=document.getElementById('coll-detail-'+i);
+  var b=document.getElementById('coll-btn-'+i);
+  var l=currentLang;
+  if(d.style.display==='none'){
+    d.style.display='block';
+    b.textContent=(l==='es'?'Ver menos':'See less')+' ↑';
+  } else {
+    d.style.display='none';
+    b.textContent=(l==='es'?'Ver más':'See more')+' →';
+  }
 }
 
 function closeModal(e){ if(e.target===document.getElementById('modal-overlay')) closeModalBtn(); }
