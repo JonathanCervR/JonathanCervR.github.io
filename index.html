@@ -60,7 +60,9 @@ section{padding:5.5rem 5rem}
 .tl-dot{width:30px;height:30px;border-radius:50%;background:var(--navy);border:2px solid var(--blue);display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--accent2);font-weight:700;flex-shrink:0;z-index:1;box-shadow:0 0 12px rgba(46,139,240,0.25)}
 .tl-box{background:var(--white);border-radius:12px;padding:1.55rem;border:1px solid var(--border)}
 .tl-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.55rem;flex-wrap:wrap;gap:.4rem}
-.tl-company{font-family:'DM Serif Display',serif;font-size:1.12rem;color:var(--navy)}
+.tl-company{font-family:'DM Serif Display',serif;font-size:1.12rem;color:var(--navy);position:relative;cursor:default;display:inline-block;border-bottom:1px dashed rgba(26,111,212,0.35)}
+.tl-company::after{content:attr(data-tooltip);position:absolute;bottom:calc(100% + 8px);left:0;background:#0a1628;color:rgba(255,255,255,0.8);font-size:.75rem;font-weight:400;line-height:1.55;padding:10px 14px;border-radius:8px;border:1px solid rgba(46,139,240,0.3);width:300px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:50;font-family:'DM Sans',sans-serif}
+.tl-company:hover::after{opacity:1}
 .tl-date{font-size:.73rem;color:#fff;background:var(--blue);padding:3px 11px;border-radius:20px;font-weight:500}
 .tl-list{margin-top:.8rem;list-style:none;display:flex;flex-direction:column;gap:.5rem}
 .tl-list li{display:flex;gap:.65rem;font-size:.87rem;color:#3d5070;line-height:1.5}
@@ -230,7 +232,7 @@ footer{background:#05101f;color:rgba(255,255,255,.2);text-align:center;padding:1
 <div class="tl-item">
   <div class="tl-dot">2</div>
   <div class="tl-box">
-    <div class="tl-head"><div class="tl-company">Schaeffler México</div><span class="tl-date" data-es="Ago – Dic 2024" data-en="Aug – Dec 2024">Ago – Dic 2024</span></div>
+    <div class="tl-company" data-tooltip="Proveedor líder mundial de los sectores automotriz e industrial, reconocido por su experiencia en componentes de precisión, rodamientos y tecnología de motores eléctricos. Actor clave en la transición hacia la movilidad eléctrica.">Schaeffler México</div><span class="tl-date" data-es="Ago – Dic 2024" data-en="Aug – Dec 2024">Ago – Dic 2024</span></div>
     <ul class="tl-list">
       <li data-es="1er lugar en SPS Challenge mediante el análisis y optimización del tiempo de ciclo en una línea de trickling del segmento de motores eléctricos." data-en="1st place at SPS Challenge through cycle time analysis and optimization in a trickling line for the electric motors segment.">1er lugar en SPS Challenge mediante el análisis y optimización del tiempo de ciclo en una línea de trickling del segmento de motores eléctricos.</li>
       <li data-es="Evaluación integral del proceso productivo para identificar cuellos de botella, ineficiencias operativas y variables críticas en una línea cuyos parámetros habían sido definidos sin validación analítica desde su implementación." data-en="Comprehensive evaluation of the production process to identify bottlenecks, operational inefficiencies, and critical variables in a line whose parameters had been defined without analytical validation since implementation.">Evaluación integral del proceso productivo para identificar cuellos de botella, ineficiencias operativas y variables críticas en una línea cuyos parámetros habían sido definidos sin validación analítica desde su implementación.</li>
@@ -242,7 +244,7 @@ footer{background:#05101f;color:rgba(255,255,255,.2);text-align:center;padding:1
 <div class="tl-item">
   <div class="tl-dot">3</div>
   <div class="tl-box">
-    <div class="tl-head"><div class="tl-company">Denso México</div><span class="tl-date" data-es="Ago – Dic 2023" data-en="Aug – Dec 2023">Ago – Dic 2023</span></div>
+    <div class="tl-company" data-tooltip="Empresa global japonesa y uno de los principales proveedores Tier 1 de la industria automotriz. Especializada en sistemas de gestión térmica, electrónica automotriz, sensores, propulsión y movilidad inteligente.">Denso México</div><span class="tl-date" data-es="Ago – Dic 2023" data-en="Aug – Dec 2023">Ago – Dic 2023</span></div>
     <ul class="tl-list">
       <li data-es="Desarrollo de soluciones de automatización para monitoreo digital de procesos productivos en entornos de manufactura." data-en="Development of automation solutions for digital monitoring of production processes in manufacturing environments.">Desarrollo de soluciones de automatización para monitoreo digital de procesos productivos en entornos de manufactura.</li>
       <li data-es="Implementación de sistemas de clasificación automática de defectos para control de calidad, mejorando la trazabilidad, la eficiencia operativa y la toma de decisiones basada en datos." data-en="Implementation of automatic defect classification systems for quality control, improving traceability, operational efficiency, and data-driven decision making.">Implementación de sistemas de clasificación automática de defectos para control de calidad, mejorando la trazabilidad, la eficiencia operativa y la toma de decisiones basada en datos.</li>
