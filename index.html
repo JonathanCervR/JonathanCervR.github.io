@@ -477,6 +477,9 @@ function setLang(lang){
   document.querySelector('.lang-btn[onclick="setLang(\''+lang+'\')"]').classList.add('active');
   document.querySelectorAll('[data-es]').forEach(function(el){ var t=el.getAttribute('data-'+lang); if(t) el.innerHTML=t; });
   document.documentElement.lang=lang;
+  document.querySelectorAll('[data-tooltip-'+lang+']').forEach(function(el){
+  el.setAttribute('data-tooltip', el.getAttribute('data-tooltip-'+lang));
+});
   renderCards();
   if(document.getElementById('modal-overlay').classList.contains('open')) renderModal();
 }
