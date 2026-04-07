@@ -447,13 +447,22 @@ function openModal(i){
 
 function renderModal(){
   var p=PROJECTS[currentModalIndex],l=currentLang;
-  var gal=p.gallery.map(function(s,gi){
-    return s?'<div class="gallery-slot"><img src="'+s+'" style="width:100%;height:100%;object-fit:cover"></div>':'<div class="gallery-slot">📷<br>'+(l==='es'?'Agrega foto':'Add photo')+' '+(gi+1)+'</div>';
-  }).join('');
-  var res=p.resultados.map(function(r){
-    return '<div class="result-card"><div class="result-num">'+r.num+'</div><div class="result-label">'+r.label[l]+'</div></div>';
-  }).join('');
-  document.getElementById('modal-inner').innerHTML='<div class="modal-badge">'+p.badge[l]+'</div><div class="modal-title">'+p.title[l]+'</div><div class="modal-section"><div class="modal-section-label">'+(l==='es'?'El reto':'The challenge')+'</div><p>'+p.reto[l]+'</p></div><div class="modal-section"><div class="modal-section-label">'+(l==='es'?'La solución':'The solution')+'</div><p>'+p.solucion[l]+'</p></div><div class="modal-section"><div class="modal-section-label">'+(l==='es'?'Resultados':'Results')+'</div><div class="results-row">'+res+'</div></div><div class="modal-section"><div class="modal-section-label">'+(l==='es'?'Galería':'Gallery')+'</div><div class="gallery">'+gal+'</div></div>';
+  var inner='';
+  if(p.isCollection){
+    var cards=p.collection.map(function(c){
+      return '<div style="background:rgba(46,139,240,.06);border:1px solid rgba(46,139,240,.14);border-radius:10px;padding:1.1rem 1.25rem;margin-bottom:.85rem"><h4 style="font-family:DM Serif Display,serif;font-size:1rem;color:#fff;margin-bottom:.5rem">'+c.name[l]+'</h4><p style="font-size:.85rem;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:.6rem">'+c.desc[l]+'</p><div style="display:flex;flex-wrap:wrap;gap:.3rem">'+c.tags.map(function(t){return '<span class="proj-tag">'+t+'</span>';}).join('')+'</div></div>';
+    }).join('');
+    inner='<div class="modal-badge">'+p.badge[l]+'</div><div class="modal-title">'+p.title[l]+'</div>'+cards;
+  } else {
+    var gal=p.gallery.map(function(s,gi){
+      return s?'<div class="gallery-slot"><img src="'+s+'" style="width:100%;height:100%;object-fit:cover"></div>':'<div class="gallery-slot">📷<br>'+(l==='es'?'Agrega foto':'Add photo')+' '+(gi+1)+'</div>';
+    }).join('');
+    var res=p.resultados.map(function(r){
+      return '<div class="result-card"><div class="result-num">'+r.num+'</div><div class="result-label">'+r.label[l]+'</div></div>';
+    }).join('');
+    inner='<div class="modal-badge">'+p.badge[l]+'</div><div class="modal-title">'+p.title[l]+'</div><div class="modal-section"><div class="modal-section-label">'+(l==='es'?'El reto':'The challenge')+'</div><p>'+p.reto[l]+'</p></div><div class="modal-section"><div class="modal-section-label">'+(l==='es'?'La solución':'The solution')+'</div><p>'+p.solucion[l]+'</p></div><div class="modal-section"><div class="modal-section-label">'+(l==='es'?'Resultados':'Results')+'</div><div class="results-row">'+res+'</div></div><div class="modal-section"><div class="modal-section-label">'+(l==='es'?'Galería':'Gallery')+'</div><div class="gallery">'+gal+'</div></div>';
+  }
+  document.getElementById('modal-inner').innerHTML=inner;
   document.getElementById('modal-counter').textContent=(currentModalIndex+1)+' / '+PROJECTS.length;
   document.getElementById('btn-prev').disabled=currentModalIndex===0;
   document.getElementById('btn-next').disabled=currentModalIndex===PROJECTS.length-1;
